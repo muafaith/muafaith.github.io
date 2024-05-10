@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Common styles */
+        .section1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #857f7f;
+            border: #575353;
+        }
+        .section2 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #99b9b2;
+            border: #575353;
+            color: black;
+        }
+        .section3{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color: #fff;
+            background-color: #1f1d1d;
+            border: #575353;
+        }
+        .section4{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color: #181717;
+            background-color: #6f80e0;
+            border: #575353;
+        }
+        
+        .image {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 10px;
+        }
+        
+        /* Large breakpoint */
+        @media (min-width: 1200px) {
+            .section {
+                padding: 40px;
+            }
+        }
+        
+        /* Medium breakpoint */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .section {
+                padding: 30px;
+            }
+        }
+        
+        /* Small breakpoint */
+        @media (max-width: 767px) {
+            .section {
+                padding: 20px;
+            }
+        }
+        
+        /* Center alignment */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            
+        }
+        .nav-tabs button {
+            background-color: #ec451b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        
+        .nav-tabs li {
+            margin: 0 10px;
+        }
+        .nav-container {
+        display: flex;
+        align-items: center;
+        background-color: #575353;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        text-align: center;
+        justify-content: center;
+        }
+
+        .nav-container i {
+        cursor: pointer;
+        }
+
+        #prev-btn {
+        margin-right: 10px;
+        }
+
+        #next-btn {
+        margin-left: 10px;
+        }
+        header {
+            background-color: #575353;
+            color: #fff;
+            padding: 10px;
+        }
+        h1 {
+            margin: 0;
+            text-align: center;
+            
+        }
+        
+        nav {
+            background-color: #575353;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+        #search {
+            display: flex;
+            justify-content: left;
+            margin-bottom: 10px;
+        }
+        #cart {
+            display: flex;
+            justify-content: right;
+            margin-bottom: 10px;
+        }
+        label {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: #000;
+            background-color: #fff;
+        }
+        .flex-container {
+        display: flex;
+        flex-direction: row;
+        }
+
+        .flex-column {
+        padding: 20px;
+        width: 50%; /* set the width of each column */
+        justify-content: center;
+        }
+        .flex-column1 {
+        padding: 20px;
+        width: 33.33%; /* set the width of each column */
+        }
+        #container{
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+    </style>
+    <script>
+        const folder = 'toys';
+        const files = [];
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const fileName = document.getElementById('file-name');
+      
+        // Load files in the folder
+        const fileSystem = window.FileSystem;
+        fileSystem.root.getEntries(folder, (entries) => {
+          files = Array.from(entries);
+          files.sort((a, b) => a.name.localeCompare(b.name));
+          updateFileIndex();
+        });
+      
+        // Update file index
+        let currentIndex = 0;
+        function updateFileIndex() {
+          fileName.textContent = files[currentIndex].name;
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === files.length - 1;
+          prevBtn.addEventListener('click', () => {
+            currentIndex -= 1;
+            updateFileIndex();
+          });
+          nextBtn.addEventListener('click', () => {
+            currentIndex += 1;
+            updateFileIndex();
+          });
+          fileName.addEventListener('click', () => {
+            window.open(`toys/${files[currentIndex].name}`, '_blank');
+          });
+        }
+      </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Ben10 Toys</title>
+
+</head>
+<body>
+    <header>
+        <form id="search">
+            <input type="text" placeholder="Search..." name="search">
+            <button type="submit">Search</button>
+            
+        </form>
+        <h1>BEN10 TOYS</h1>
+        <form id="cart" >
+        <button><a href="cart.html" width="110px"><i class="fas fa-shopping-cart"></i> Cart</a></button>
+        </form>
+    </header>
+    <nav>
+        <ul class="nav-tabs"></ul>
+            <button><a href="#section1" width="110px" >Home</a></button>
+            <button><a href="#section2" width="110px" >Brands</a></button>
+            <button><a href="#section3" width="110px" >Recommendations</a></button>
+            <button><a href="contact.html" width="110px" >Contact Us</a></button>
+        </ul>
+    </nav>
+
+    <div class="section1">
+        <img class="image" src="toys/14.png" width="500px" alt="Image 1">
+        <p>
+            Ben10 Toys is a toy company that specializes in action figures and other toys 
+            based on the popular animated television series Ben10. 
+            The company was founded in 2005 and has since become one of the leading toy manufacturers in the world. 
+            Ben10 Toys is known for its high-quality products and innovative designs, 
+            which have made it a favorite among children and collectors alike.<br>
+            
+        </p>
+        <label style="justify-content: center;">OUR FAVOURITE BRAND</label>
+    </div>
+    <div class="section2">
+        <div>
+            <h3>NEW ARRIVALS</h3>
+            
+        </div>
+        
+        <div class="nav-container">
+            <i class="fas fa-chevron-left" id="prev-btn"></i>
+            <span id="file-name"></span>
+                <img class="image" src="toys/1.png" width="150px" alt="Image 5">
+                <img class="image" src="toys/2.png" width="150px" alt="Image 6">
+                <img class="image" src="toys/3.png" width="150px" alt="Image 7">
+                <img class="image" src="toys/4.png" width="150px" alt="Image 8">
+            <i class="fas fa-chevron-right" id="next-btn"></i>
+        </div>
+        <label style="justify-content: center;">BEST SELLERS</label>
+    </div>
+    
+    <div class="section3">
+
+        <h3>RECOMMENDATIONS FOR YOU</h3>
+        <div id="container">
+            <img class="image" src="toys/5.png" width="150px" alt="Image 9">
+            <img class="image" src="toys/6.png" width="150px" alt="Image 10">
+            <img class="image" src="toys/8.png" width="150px" alt="Image 11">
+            <img class="image" src="toys/7.png" width="150px" alt="Image 12">
+        </div>
+    </div>
+    
+    <div class="flex-container">
+        <div class="flex-column">
+                <h3>OUR STORY</h3>
+            Ben10 Toys is constantly releasing new products to keep up with the latest trends and 
+            to provide customers with the best possible selection of toys. 
+            Some of our newest arrivals include action figures, playsets, and vehicles 
+            featuring characters from the Ben10 series. 
+            These toys are perfect for children of all ages and are sure to provide hours of fun and entertainment. 
+            Check out our latest products and add them to your collection today!<br>
+            <button class="read-more-button">Read More</button>
+        </div>
+        <div class="flex-column">
+            <img class="image" src="toys/9.png" width="300px" alt="Image 13">
+        </div>
+    </div>
+
+    <div class="section4">
+        <h3>FOLLOW US ON INSTAGRAM</h3>
+        <div id="container"> 
+            <img src="icons8-facebook-48.png" alt="" />
+            <img src="twitter.png" alt="" />
+            <img src="icons8-instagram-48.png" alt="" />
+            <img src="tiktok.png" alt="" />
+            <img src="youtube.png" alt="" />
+        </div>
+    </div>
+    <footer>
+        <div class="flex-container">
+            <div class="flex-column1">
+                <hr>Contact Information<hr>
+                <p>Ben10 Toys</p>
+                <p>123 Main Street</p>
+                <p>Nairobi, Kenya 12345</p>
+                <p>Phone: +254-123-456-789</p>
+                <p>Email: benten@gmail.com </p>
+            </div>
+            <div class="flex-column1">
+                <hr>Customer Service<hr>
+                <p>Shipping & Returns</p>
+                <p>Privacy Policy</p>
+                <p>Terms & Conditions</p>
+                <p>FAQs</p>
+            </div>
+            <div class="flex-column1">
+                <hr>Follow Us<hr>
+                <img src="icons8-facebook-48.png" alt="" />
+                <img src="twitter.png" alt="" />
+                <img src="icons8-instagram-48.png" alt="" />
+                <img src="tiktok.png" alt="" />
+            </div>
+        </div>
+
+    </footer>
+</body>
+</html>
